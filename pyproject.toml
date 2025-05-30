@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "lei-sdmx"
+version = "0.1.0"
+description = "An example of a pipeline for on-boarding the LEI into SDMX"
+authors = ["Antonio Olleros <antonio.olleros@meaningfuldata.eu>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+vtlengine = "^1.1"
+requests = "^2.32.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
