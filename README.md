@@ -31,6 +31,8 @@ cd lei_sdmx
 poetry install
 ```
 
+Make sure you have Poetry installed. If not, you can install it with `pip install poetry`.
+
 ## Usage
 
 The main pipeline can be used as follows:
