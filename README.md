@@ -28,7 +28,7 @@ cd lei_sdmx
 
 2. Install dependencies (using poetry):
 ```bash
-poetry install
+poetry install --no-root
 ```
 
 Make sure you have Poetry installed. If not, you can install it with `pip install poetry`.
