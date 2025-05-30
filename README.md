@@ -22,7 +22,7 @@ The pipeline processes LEI data through several stages:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Meaningful-Data/lei_sdmx
+git clone https://github.com/Meaningful-Data/lei_sdmx.git
 cd lei_sdmx
 ```
 
