@@ -13,17 +13,16 @@ The pipeline processes LEI data through several stages:
 
 ## Prerequisites
 
-- Python 3.7 or higher
-- Required Python packages (install via `pip install -r requirements.txt`):
-  - pandas
-  - pysdmx
-  - vtlengine
+- Python 3.9 or higher
+- Required Python packages:
+  - vtlengine (installs automatically libraries like pandas and pysdmx)
+  - requests
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/lei_sdmx.git
+git clone https://github.com/Meaningful-Data/lei_sdmx.git
 cd lei_sdmx
 ```
 
@@ -31,6 +30,8 @@ cd lei_sdmx
 ```bash
 poetry install
 ```
+
+Make sure you have Poetry installed. If not, you can install it with `pip install poetry`.
 
 ## Usage
 
@@ -75,7 +76,7 @@ Note that the function is already implemented in the file lei_sdmx_pipeline.py
 
 ### Input Data Format
 
-The input CSV file is the LEI golden copy, whic can be found [here](https://www.gleif.org/en/lei-data/gleif-golden-copy/download-the-golden-copy#/)
+The input CSV file is the LEI golden copy, which can be found [here](https://www.gleif.org/en/lei-data/gleif-golden-copy/download-the-golden-copy#/)
 Please bear in mind that you should download a file, and change the parameters in the code to point to the right CSV file.
 
 ### Output
