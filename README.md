@@ -26,12 +26,21 @@ git clone https://github.com/Meaningful-Data/lei_sdmx.git
 cd lei_sdmx
 ```
 
-2. Install dependencies (using poetry):
+2. Install dependencies into a virtual environment:
 ```bash
-poetry install --no-root
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-Make sure you have Poetry installed. If not, you can install it with `pip install poetry`.
+> **Note for Ubuntu/Debian users:** it is tempting to reuse apt (`python3-*`)
+> packages by creating the venv with `--system-site-packages`. That does **not**
+> work for this project. `pysdmx`/`vtlengine` (via `pyarrow`) require **NumPy
+> 2.x**, while Ubuntu's scientific stack (`numpy`, `pandas`, `numexpr`,
+> `bottleneck`, `scipy`) is built against **NumPy 1.x**. Exposing the apt
+> packages mixes the two ABIs and produces import crashes such as
+> `numpy.dtype size changed` / `a module compiled using NumPy 1.x cannot be run
+> in NumPy 2.x`. Use a plain isolated venv (everything from PyPI) as shown above.
 
 ## Usage
 
@@ -93,7 +102,7 @@ The pipeline produces:
 lei_sdmx/
 ├── lei_sdmx_pipeline.py    # Main pipeline implementation
 ├── utils.py               # Utility functions for FMR validation
-├── pyproject.toml         # Poetry dependencies
+├── requirements.txt       # Python dependencies
 ├── README.md             # This file
 ├── lei_data/             # Directory for input LEI data
 ├── output/               # Directory for SDMX output files

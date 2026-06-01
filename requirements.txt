@@ -1,0 +1,28 @@
+# requirements.txt for lei_sdmx
+#
+# Install into a plain (isolated) virtual environment:
+#
+#   python3 -m venv .venv
+#   . .venv/bin/activate
+#   pip install -r requirements.txt
+#
+# NOTE on apt reuse: it is tempting on Ubuntu/Debian to reuse apt (python3-*)
+# packages via `python3 -m venv --system-site-packages`. That does NOT work for
+# this project. pysdmx/vtlengine (via pyarrow) require NumPy 2.x, while Ubuntu's
+# scientific stack (numpy, pandas, numexpr, bottleneck, scipy) is built against
+# NumPy 1.x. Mixing the two ABIs causes "numpy.dtype size changed / a module
+# compiled using NumPy 1.x cannot be run in NumPy 2.x" import crashes. A plain
+# isolated venv (everything from PyPI) avoids this. `requests` is pure-Python and
+# could be shared, but it is not worth exposing the broken C-extension stack.
+#
+# vtlengine constrains pandas to >=2.1.4,<3.0, so the resolver picks a 2.x pandas
+# automatically when installed together with the other requirements below.
+
+pandas
+requests
+pysdmx
+vtlengine
+
+# Optional: used for the pre-load memory-safety check. The code falls back to a
+# Linux sysconf query if psutil is not installed, so this is not strictly required.
+psutil

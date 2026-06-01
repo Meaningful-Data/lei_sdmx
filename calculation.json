@@ -1,0 +1,65 @@
+{
+    "meta": {
+        "id": "3865ec5b-a0c8-4a0f-a46a-772eed6d2604",
+        "prepared": "2026-06-01T18:01:24.838617Z",
+        "sender": {
+            "id": "ZZZ"
+        },
+        "schema": "https://raw.githubusercontent.com/sdmx-twg/sdmx-json/develop/structure-message/tools/schemas/2.0.0/sdmx-json-structure-schema.json"
+    },
+    "data": {
+        "transformationSchemes": [
+            {
+                "agencyID": "MD",
+                "id": "LEI_CALCULATION",
+                "name": "LEI calculations",
+                "version": "1.0",
+                "vtlVersion": "2.1",
+                "transformations": [
+                    {
+                        "id": "T1",
+                        "name": "Transformation calculation.country_dimension",
+                        "expression": "LEI_DATA[calc identifier COUNTRY_INCORPORATION := nvl(COUNTRY_INCORPORATION, \"\"), identifier COUNTRY_HEADQUARTERS := nvl(COUNTRY_HEADQUARTERS, \"\")]",
+                        "result": "calculation.country_dimension",
+                        "isPersistent": false
+                    },
+                    {
+                        "id": "T2",
+                        "name": "Transformation calculation.number_incorporated_entities",
+                        "expression": "count(calculation.country_dimension#LEI group by COUNTRY_INCORPORATION)[calc identifier TYPE_MEASURE := \"NUMBER_INCORPORATED_ENTITIES\"][rename int_var to OBS_VALUE, COUNTRY_INCORPORATION to COUNTRY]",
+                        "result": "calculation.number_incorporated_entities",
+                        "isPersistent": false
+                    },
+                    {
+                        "id": "T3",
+                        "name": "Transformation calculation.number_hq_entities",
+                        "expression": "count(calculation.country_dimension#LEI group by COUNTRY_HEADQUARTERS)[calc identifier TYPE_MEASURE := \"NUMBER_HQ_ENTITIES\"][rename int_var to OBS_VALUE, COUNTRY_HEADQUARTERS to COUNTRY]",
+                        "result": "calculation.number_hq_entities",
+                        "isPersistent": false
+                    },
+                    {
+                        "id": "T4",
+                        "name": "Transformation calculation.country_dimension_diff_hq",
+                        "expression": "calculation.country_dimension[filter COUNTRY_INCORPORATION <> COUNTRY_HEADQUARTERS]",
+                        "result": "calculation.country_dimension_diff_hq",
+                        "isPersistent": false
+                    },
+                    {
+                        "id": "T5",
+                        "name": "Transformation calculation.number_entities_different_hq",
+                        "expression": "count(calculation.country_dimension_diff_hq#LEI group by COUNTRY_INCORPORATION)[calc identifier TYPE_MEASURE := \"NUMBER_ENTITIES_DIFF_HQ\"][rename int_var to OBS_VALUE, COUNTRY_INCORPORATION to COUNTRY]",
+                        "result": "calculation.number_entities_different_hq",
+                        "isPersistent": false
+                    },
+                    {
+                        "id": "T6",
+                        "name": "Transformation lei_statistics",
+                        "expression": "union(calculation.number_incorporated_entities, calculation.number_hq_entities, calculation.number_entities_different_hq)",
+                        "result": "lei_statistics",
+                        "isPersistent": true
+                    }
+                ]
+            }
+        ]
+    }
+}
