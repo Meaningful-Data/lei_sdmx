@@ -1,1 +1,5 @@
 __pycache__/
+.venv/
+lei_data/
+log/
+output/
